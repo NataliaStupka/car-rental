@@ -1,0 +1,6 @@
+.homePage {
+  background-image: url(../../images/home/Picture.jpg);
+  background-size: cover;
+  min-width: 1440px;
+  min-height: 770px;
+}
