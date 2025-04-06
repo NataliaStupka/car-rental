@@ -1,8 +1,8 @@
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllCars } from "../../../redux/cars/selectors";
+import { selectAllCars } from "../../redux/cars/selectors";
 import * as Yup from "yup";
-import { changeFilter } from "../../../redux/filters/slice";
+import { changeFilter } from "../../redux/filters/slice";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const SearchBar = () => {
   ].sort((a, b) => a - b);
 
   const handleSubmit = (values, options) => {
-    console.log(values);
+    console.log("**", values);
     options.resetForm();
     Object.entries(values).forEach(([name, value]) => {
       dispatch(changeFilter({ name, value }));
