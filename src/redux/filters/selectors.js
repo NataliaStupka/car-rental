@@ -8,6 +8,8 @@ export const selectSearchFilterPrice = (state) => state.filter.price;
 export const selectFilterMileageFrom = (state) => state.filter.mileageFrom;
 export const selectFilterMileageTo = (state) => state.filter.mileageTo;
 
+export const selectFilterBrands = (state) => state.filter.brands;
+
 //складений селектор, пошук/фільтрація cars
 export const selectSearchFilter = createSelector(
   [

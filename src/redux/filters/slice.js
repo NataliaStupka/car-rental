@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchBrands } from "./operations";
 
 const initialState = {
   brand: "",
   price: "",
   mileageFrom: "",
   mileageTo: "",
+  brands: [],
 };
 
 const slice = createSlice({
@@ -12,10 +14,14 @@ const slice = createSlice({
   initialState,
   reducers: {
     changeFilter: (state, action) => {
-      console.log("Filter Payload", action.payload);
       const { name, value } = action.payload;
       state[name] = value;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchBrands.fulfilled, (state, action) => {
+      state.brands = action.payload;
+    });
   },
 });
 

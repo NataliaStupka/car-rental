@@ -3,18 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAllCars } from "../../redux/cars/selectors";
 import * as Yup from "yup";
 import { changeFilter } from "../../redux/filters/slice";
+import { selectFilterBrands } from "../../redux/filters/selectors";
+import { useEffect } from "react";
+import { fetchBrands } from "../../redux/filters/operations";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
 
+  const brands = useSelector(selectFilterBrands);
   const cars = useSelector(selectAllCars);
-  const uniqueBrand = [...new Set(cars.map((car) => car.brand))];
   const uniquePrice = [
     ...new Set(cars.map((car) => Number(car.rentalPrice))),
   ].sort((a, b) => a - b);
 
+  useEffect(() => {
+    dispatch(fetchBrands());
+  }, [dispatch]);
+
   const handleSubmit = (values, options) => {
-    console.log("**", values);
     options.resetForm();
     Object.entries(values).forEach(([name, value]) => {
       dispatch(changeFilter({ name, value }));
@@ -36,7 +42,7 @@ const SearchBar = () => {
             <option disabled value="">
               Choose a brand
             </option>
-            {uniqueBrand.map((brand) => {
+            {brands.map((brand) => {
               return (
                 <option key={brand} value={brand}>
                   {brand}
