@@ -34,7 +34,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <Formik onSubmit={handleSubmit} initialValues={initialValues}>
         <Form>
           <label>Car brand</label>

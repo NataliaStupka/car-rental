@@ -6,22 +6,80 @@
 .wrapper {
   justify-content: center;
   align-items: center;
-  border: 1px solid #dadde1;
+  max-width: 640px;
 }
+.img {
+  border-radius: 18px;
+  margin-bottom: 40px;
+}
+.formWrap {
+  border: 1px solid #dadde1;
+  border-radius: 10px;
+  padding: 32px;
+}
+.title {
+  font-family: Manrope;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
 
+  color: var(--main-text);
+  margin-bottom: 8px;
+  padding-left: 32px;
+}
+.text {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #8d929a;
+  padding-left: 32px;
+}
 .form {
   display: flex;
   flex-direction: column;
-  width: 640px;
 
-  padding: 20px;
-  gap: 10px;
-  & button {
-    background-color: #3470ff;
-    color: white;
-    padding: 12px 58px;
-    border-radius: 12px;
-    border: none;
-    /* box-shadow: 2px 2px 4px 4px lightgray; */
-  }
+  padding: 32px;
+  gap: 16px;
+}
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+.input,
+.textarea {
+  padding: 10px 14px;
+  border: 1px solid #f7f7f7;
+  border-radius: 12px;
+  font-size: 16px;
+  background-color: #f7f7f7;
+}
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.btn {
+  background-color: #3470ff;
+  color: white;
+  padding: 12px 58px;
+  border-radius: 12px;
+  border: none;
+}
+
+/* info */
+.titleCar {
+  font-family: Manrope;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+
+  color: var(--main-text);
+  margin-bottom: 8px;
 }

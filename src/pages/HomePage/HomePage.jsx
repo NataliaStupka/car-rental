@@ -9,10 +9,14 @@ const HomePage = () => {
   return (
     <main>
       <div className={s.homePage}>
-        <div className={s.container}>
-          <h1>Find your perfect rental car</h1>
-          <p>Reliable and budget-friendly rentals for any journey</p>
-          <Link to="/catalog">View Catalog</Link>
+        <div>
+          <h1 className={s.titleText}>Find your perfect rental car</h1>
+          <p className={s.text}>
+            Reliable and budget-friendly rentals for any journey
+          </p>
+          <Link to="/catalog" className="button">
+            View Catalog
+          </Link>
         </div>
       </div>
     </main>

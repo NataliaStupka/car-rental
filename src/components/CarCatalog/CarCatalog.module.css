@@ -3,4 +3,21 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 48px 32px;
   padding: 0;
+
+  margin-bottom: 80px;
+}
+
+.btnLoadMore {
+  font-family: Manrope;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+
+  background-color: inherit;
+  border-radius: 12px;
+  border: 1px solid #3470ff;
+  padding: 12px 38px;
+
+  display: block;
+  margin: 0 auto;
 }

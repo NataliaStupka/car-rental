@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { setSelectedCar } from "../../redux/cars/slice";
+import s from "./CarItem.module.css";
 
 const CarItem = ({ car }) => {
   //   console.log("CAR!:", car);
@@ -13,18 +14,19 @@ const CarItem = ({ car }) => {
 
   return (
     <>
-      <div>
-        <img src={car.img} alt={car.type} />
-        <div>
-          <h2>
-            {car.brand} <span>{car.model}</span>, {car.year}
+      <div className={s.cardCar}>
+        <img src={car.img} alt={car.type} className={s.img} />
+        <div className={s.wrap}>
+          <h2 className={s.titleCar}>
+            {car.brand} <span className={s.modelCar}>{car.model}</span>,{" "}
+            {car.year}
           </h2>
-          <p>${car.rentalPrice}</p>
+          <p className={s.price}>${car.rentalPrice}</p>
         </div>
-        <p>
+        <p className={s.text}>
           {car.address} {car.rentalCompany}
         </p>
-        <p>
+        <p className={s.text}>
           {car.type} {car.mileage} km
         </p>
       </div>
@@ -32,12 +34,7 @@ const CarItem = ({ car }) => {
         to={`/catalog/${car.id}`}
         state={{ car, from: location }}
         onClick={handleSelectCar}
-        style={{
-          padding: "10px 15px",
-          color: "#FFFFFF",
-          backgroundColor: "#3470FF",
-          borderRadius: "5px",
-        }}
+        className={s.btnMore}
       >
         Read more
       </Link>

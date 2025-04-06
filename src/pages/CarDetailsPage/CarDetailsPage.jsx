@@ -1,4 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 import { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
@@ -43,79 +44,114 @@ const CarDetailsPage = () => {
     console.log("Form-value", value);
     options.resetForm();
   };
-  //   const contactSchema = Yup.object().shape({
-  //     username: Yup.string()
-  //       .min(3, "Too short!")
-  //       .max(50, "Поле не може бути більше ніж 50 символи")
-  //       .required("Required"),
-  //     tel: Yup.number()
-  //       .positive("Число має бути додатним")
-  //       .integer("Число має бути цілим")
-  //       .required("Required"),
-  //   });
+  const contactSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(3, "Too short!")
+      .max(50, "Поле не може бути більше ніж 50 символи")
+      .required("Required"),
+    email: Yup.string().email("Invalid email").required("Required"),
+    bookingDate: Yup.string().required("Required"),
+    comment: Yup.string(),
+  });
 
   return (
-    <div>
-      <Link to={goBackLink.current}>Go back</Link>
-      <div className={s.detailsContainer}>
-        <div className={s.wrapper}>
-          <img src={car.img} alt={car.model} />
-          <h2>Book your car now</h2>
-          <p>Stay connected! We are always ready to help you.</p>
+    <main>
+      <div className="container">
+        <Link to={goBackLink.current}>Go back</Link>
+        <div className={s.detailsContainer}>
+          <div className={s.wrapper}>
+            <img src={car.img} alt={car.model} className={s.img} />
 
-          <Formik
-            onSubmit={handleSubmit}
-            initialValues={initialValues}
-            //   validationSchema={contactSchema}
-          >
-            <Form className={s.form}>
-              <Field type="text" name="username" placeholder="Name" />
-              <Field type="email" name="email" placeholder="Email" />
-              <Field
-                type="text"
-                name="bookingDate"
-                placeholder="Booking date"
-              />
-              <Field as="textarea" name="comment" placeholder="Comment" />
-              <button type="submit">Send</button>
-            </Form>
-          </Formik>
-        </div>
-        <div>
-          Informations
-          <h3>
-            {car.brand} {car.model}, {car.year} id: ??
-          </h3>
-          <p>
-            {car.address} Mileage: {car.mileage}
-          </p>
-          <p>{car.rentalPrice}</p>
-          <p>{car.description}</p>
-          <ul style={{ border: "1px solid green", marginBottom: "10px" }}>
-            Rental Conditions:
-            {car.rentalConditions.map((item) => {
-              return <li key={nanoid()}> ✅ {item}</li>;
-            })}
-          </ul>
-          <ul style={{ border: "1px solid red", marginBottom: "10px" }}>
-            Car Specifications:
-            <li>Year: {car.year}</li>
-            <li>Type: {car.type}</li>
-            <li>Fuel Consumption: {car.fuelConsumption}</li>
-            <li>Engine Size: {car.engineSize}</li>
-          </ul>
-          <ul>
-            Accessories and functionalities:
-            {car.accessories.map((item) => {
-              return <li key={nanoid()}> ✅ {item}</li>;
-            })}
-            {car.functionalities.map((item) => {
-              return <li key={nanoid()}> ✅ {item}</li>;
-            })}
-          </ul>
+            <div className={s.formWrap}>
+              <h2 className={s.title}>Book your car now</h2>
+              <p className={s.text}>
+                Stay connected! We are always ready to help you.
+              </p>
+
+              <Formik
+                onSubmit={handleSubmit}
+                initialValues={initialValues}
+                validationSchema={contactSchema}
+              >
+                <Form className={s.form}>
+                  <div className={s.inputGroup}>
+                    <Field
+                      type="text"
+                      name="username"
+                      placeholder="Name"
+                      className={s.input}
+                    />
+                  </div>
+
+                  <div className={s.inputGroup}>
+                    <Field
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      className={s.input}
+                    />
+                  </div>
+
+                  <div className={s.inputGroup}>
+                    <Field
+                      type="text"
+                      name="bookingDate"
+                      placeholder="Booking date"
+                      className={s.input}
+                    />
+                  </div>
+                  <div className={s.inputGroup}>
+                    <Field
+                      as="textarea"
+                      name="comment"
+                      placeholder="Comment"
+                      className={s.textarea}
+                    />
+                  </div>
+
+                  <button type="submit" className={s.btn}>
+                    Send
+                  </button>
+                </Form>
+              </Formik>
+            </div>
+          </div>
+
+          <div>
+            <h3 className={s.titleCar}>
+              {car.brand} {car.model}, {car.year} id: ??
+            </h3>
+            <p>
+              {car.address} Mileage: {car.mileage}
+            </p>
+            <p>{car.rentalPrice}</p>
+            <p>{car.description}</p>
+            <ul style={{ border: "1px solid green", marginBottom: "10px" }}>
+              Rental Conditions:
+              {car.rentalConditions.map((item) => {
+                return <li key={nanoid()}> ✅ {item}</li>;
+              })}
+            </ul>
+            <ul style={{ border: "1px solid red", marginBottom: "10px" }}>
+              Car Specifications:
+              <li>Year: {car.year}</li>
+              <li>Type: {car.type}</li>
+              <li>Fuel Consumption: {car.fuelConsumption}</li>
+              <li>Engine Size: {car.engineSize}</li>
+            </ul>
+            <ul>
+              Accessories and functionalities:
+              {car.accessories.map((item) => {
+                return <li key={nanoid()}> ✅ {item}</li>;
+              })}
+              {car.functionalities.map((item) => {
+                return <li key={nanoid()}> ✅ {item}</li>;
+              })}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

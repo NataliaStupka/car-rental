@@ -1,0 +1,59 @@
+.cardCar {
+  margin-bottom: 28px;
+  min-height: 310px;
+}
+
+.img {
+  margin-bottom: 16px;
+  border-radius: 12px;
+}
+.wrap {
+  display: flex;
+  margin-bottom: 8px;
+}
+.titleCar {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+
+  vertical-align: middle;
+
+  color: var(--main-text);
+  margin-right: 87px;
+}
+.modelCar {
+  color: var(--button-color);
+}
+
+.price {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+
+  vertical-align: middle;
+  color: var(--main-text);
+}
+
+.text {
+  font-family: Manrope;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: var(--grey);
+  margin-bottom: 4px;
+}
+
+.btnMore {
+  background-color: var(--button-color);
+  padding: 12px 68px;
+  color: var(--white);
+  border-radius: 12px;
+
+  font-family: Manrope;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+}

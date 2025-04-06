@@ -41,7 +41,7 @@ const CarCatalog = () => {
   };
 
   return (
-    <>
+    <div className="container" style={{ marginBottom: "124px" }}>
       <ul className={s.carList}>
         {cars.map((car) => (
           <li key={car.id}>
@@ -54,17 +54,12 @@ const CarCatalog = () => {
         <button
           type="button"
           onClick={handleLoadMore}
-          style={{
-            marginTop: "30px",
-            padding: "15px 20px",
-            border: "1px solid #3470FF",
-            borderRadius: "12px",
-          }}
+          className={s.btnLoadMore}
         >
           Load More
         </button>
       )}
-    </>
+    </div>
   );
 };
 

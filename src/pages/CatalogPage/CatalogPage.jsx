@@ -25,10 +25,10 @@ const CatalogPage = () => {
   }, [dispatch, currentPage, wasFetched]);
 
   return (
-    <>
+    <main>
       <SearchBar />
       <CarCatalog />
-    </>
+    </main>
   );
 };
 

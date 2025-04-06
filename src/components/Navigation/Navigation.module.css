@@ -2,11 +2,16 @@
   display: flex;
   /* gap: 20px; */
   justify-content: space-between;
-  padding: 10px 20px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 
   .active {
     text-decoration: underline;
     color: rgb(250, 89, 156);
     font-weight: 700;
   }
+}
+
+.navItem {
+  margin-right: 32px;
 }
