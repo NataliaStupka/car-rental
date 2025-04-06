@@ -119,33 +119,47 @@ const CarDetailsPage = () => {
 
           <div>
             <h3 className={s.titleCar}>
-              {car.brand} {car.model}, {car.year} id: ??
+              {car.brand} {car.model}, {car.year}
             </h3>
-            <p>
+            <p className={s.adress}>
               {car.address} Mileage: {car.mileage}
             </p>
-            <p>{car.rentalPrice}</p>
-            <p>{car.description}</p>
-            <ul style={{ border: "1px solid green", marginBottom: "10px" }}>
+            <p className={s.price}>${car.rentalPrice}</p>
+            <p className={s.descrip}>{car.description}</p>
+            <ul className={s.list}>
               Rental Conditions:
               {car.rentalConditions.map((item) => {
-                return <li key={nanoid()}> ✅ {item}</li>;
+                return (
+                  <li key={nanoid()} className={s.item}>
+                    - {item}
+                  </li>
+                );
               })}
             </ul>
-            <ul style={{ border: "1px solid red", marginBottom: "10px" }}>
+            <ul className={s.list}>
               Car Specifications:
-              <li>Year: {car.year}</li>
-              <li>Type: {car.type}</li>
-              <li>Fuel Consumption: {car.fuelConsumption}</li>
-              <li>Engine Size: {car.engineSize}</li>
+              <li className={s.item}>Year: {car.year}</li>
+              <li className={s.item}>Type: {car.type}</li>
+              <li className={s.item}>
+                Fuel Consumption: {car.fuelConsumption}
+              </li>
+              <li className={s.item}>Engine Size: {car.engineSize}</li>
             </ul>
-            <ul>
+            <ul className={s.list}>
               Accessories and functionalities:
               {car.accessories.map((item) => {
-                return <li key={nanoid()}> ✅ {item}</li>;
+                return (
+                  <li key={nanoid()} className={s.item}>
+                    - {item}
+                  </li>
+                );
               })}
               {car.functionalities.map((item) => {
-                return <li key={nanoid()}> ✅ {item}</li>;
+                return (
+                  <li key={nanoid()} className={s.item}>
+                    - {item}
+                  </li>
+                );
               })}
             </ul>
           </div>
