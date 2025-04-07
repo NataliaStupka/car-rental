@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectedCar } from "../../redux/cars/slice";
 import { selectCar } from "../../redux/cars/selectors";
 import sprite from "../../assets/sprite.svg";
+import clsx from "clsx";
 
 const CarDetailsPage = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const CarDetailsPage = () => {
 
   return (
     <main>
-      <div className="container">
+      <div className={clsx("container", s.details)}>
         <Link to={goBackLink.current}>Go back</Link>
         <div className={s.detailsContainer}>
           <div className={s.wrapper}>

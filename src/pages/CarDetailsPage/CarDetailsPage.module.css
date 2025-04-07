@@ -1,3 +1,8 @@
+.details {
+  padding-top: 84px;
+  padding-bottom: 104px;
+}
+
 .detailsContainer {
   display: flex;
   gap: 72px;
