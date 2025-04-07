@@ -6,9 +6,9 @@
   padding-bottom: 24px;
 
   .active {
-    text-decoration: underline;
-    color: rgb(250, 89, 156);
-    font-weight: 700;
+    /* text-decoration: underline; */
+    color: #0b44cd;
+    /* font-weight: 700; */
   }
 }
 

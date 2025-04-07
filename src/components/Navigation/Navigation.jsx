@@ -3,16 +3,20 @@ import clsx from "clsx";
 import s from "./Navigation.module.css";
 import Logo from "../Logo/Logo";
 
-const buildLinkClass = ({ isActive }) => {
-  return clsx(s.link, isActive && s.active);
-};
+// const buildLinkClass = ({ isActive }) => {
+//   return clsx(s.link, isActive && s.active);
+// };
+const buildLinkClass = ({ isActive }) => clsx(s.link, { [s.active]: isActive });
 
 const Navigation = () => {
   return (
     <nav className={s.nav}>
       <Logo />
       <div>
-        <NavLink to="/" className={buildLinkClass}>
+        <NavLink
+          to="/"
+          className={(props) => clsx(buildLinkClass(props), s.navItem)}
+        >
           Home
         </NavLink>
         <NavLink to="/catalog" className={buildLinkClass}>
