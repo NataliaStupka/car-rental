@@ -68,8 +68,10 @@ select {
   font: inherit;
 }
 .container {
-  width: 1200px;
+  width: 1440px;
   padding: 0 120px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .button {

@@ -1,6 +1,6 @@
 .homePage {
   max-width: 1440px;
-  background-image: url(../../images/home/Picture.jpg);
+  background-image: url(../../images/home/HeroDesctop.jpg);
   background-size: cover;
   padding-top: 436px;
   padding-bottom: 60px;
@@ -10,6 +10,12 @@
   background-position: center;
   background-color: #8d929a;
   text-align: center;
+}
+/* 2x screens, retina, 640x480 image */
+@media (min-resolution: 2x) {
+  .homePage {
+    background-image: url(../../images/home/HeroDesctop@2x.jpg);
+  }
 }
 
 .titleText {

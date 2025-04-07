@@ -1,11 +1,28 @@
 .cardCar {
   margin-bottom: 28px;
-  min-height: 310px;
+  min-height: 335px;
 }
-
+.imgWrapper {
+  position: relative;
+}
 .img {
   margin-bottom: 16px;
   border-radius: 12px;
+}
+.svg {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 16px;
+  height: 16px;
+  fill: red;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    --color1: #3470ff;
+    stroke: 3470ff;
+  }
 }
 .wrap {
   display: flex;
@@ -48,7 +65,7 @@
 
 .btnMore {
   background-color: var(--button-color);
-  padding: 12px 68px;
+  padding: 12px 97px;
   color: var(--white);
   border-radius: 12px;
 

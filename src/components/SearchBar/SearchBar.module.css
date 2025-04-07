@@ -1,0 +1,86 @@
+.form {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 84px;
+  padding-bottom: 56px;
+
+  max-width: 925px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+}
+.label {
+  margin-bottom: 8px;
+  color: #8d929a;
+
+  font-family: Manrope;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.select,
+.input {
+  padding: 12px 32px 12px 16px;
+  border-radius: 12px;
+
+  background-color: #f7f7f7;
+  /* appearance: none; */
+  border: none;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+
+  vertical-align: middle;
+  color: var(--main-text);
+
+  &.inputFrom {
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+    border-right: 1px solid #dadde1;
+    padding-left: 60px;
+    width: 160px;
+  }
+
+  &.inputTo {
+    border-top-left-radius: unset;
+    border-bottom-left-radius: unset;
+    padding-left: 40px;
+    width: 160px;
+  }
+}
+.mileageGroup {
+  display: flex;
+}
+.inputWrap {
+  position: relative;
+}
+.labelFloat {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+
+  vertical-align: middle;
+
+  color: var(--main-text);
+}
+
+.btnSearch {
+  padding: 12px 51;
+}

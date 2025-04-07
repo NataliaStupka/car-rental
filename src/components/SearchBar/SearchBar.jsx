@@ -6,6 +6,8 @@ import { changeFilter } from "../../redux/filters/slice";
 import { selectFilterBrands } from "../../redux/filters/selectors";
 import { useEffect } from "react";
 import { fetchBrands } from "../../redux/filters/operations";
+import s from "./SearchBar.module.css";
+import clsx from "clsx";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -36,24 +38,26 @@ const SearchBar = () => {
   return (
     <div className="container">
       <Formik onSubmit={handleSubmit} initialValues={initialValues}>
-        <Form>
-          <label>Car brand</label>
-          <Field as="select" name="brand">
-            <option disabled value="">
-              Choose a brand
-            </option>
-            {brands.map((brand) => {
-              return (
-                <option key={brand} value={brand}>
-                  {brand}
-                </option>
-              );
-            })}
-          </Field>
+        <Form className={s.form}>
+          <div className={s.group}>
+            <label className={s.label}>Car brand</label>
+            <Field as="select" name="brand" className={s.select}>
+              <option disabled value="">
+                Choose a brand
+              </option>
+              {brands.map((brand) => {
+                return (
+                  <option key={brand} value={brand}>
+                    {brand}
+                  </option>
+                );
+              })}
+            </Field>
+          </div>
 
-          <label>
-            <span>Price/ 1 hour</span>
-            <Field as="select" name="price">
+          <div className={s.group}>
+            <label className={s.label}>Price/ 1 hour</label>
+            <Field as="select" name="price" className={s.select}>
               <option disabled value="">
                 Choose a price
               </option>
@@ -65,17 +69,36 @@ const SearchBar = () => {
                 );
               })}
             </Field>
-          </label>
+          </div>
 
-          <label>
-            <span>Сar mileage / km</span>
-            <label>From</label>
-            <Field type="number" name="mileageFrom" />
-            <label>To</label>
-            <Field type="number" name="mileageTo" />
-          </label>
+          <div className={s.group}>
+            <label className={s.label}>Сar mileage / km </label>
+            <div className={s.mileageGroup}>
+              <div className={s.inputWrap}>
+                <label className={s.labelFloat}>From</label>
+                <Field
+                  type="number"
+                  name="mileageFrom"
+                  className={clsx(s.input, s.inputFrom)}
+                  // placeholder="From"
+                />
+              </div>
 
-          <button type="submit">Search</button>
+              <div className={s.inputWrap}>
+                <label className={s.labelFloat}>To</label>
+                <Field
+                  type="number"
+                  name="mileageTo"
+                  className={clsx(s.input, s.inputTo)}
+                  // placeholder="To"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" className={clsx("button", s.btnSearch)}>
+            Search
+          </button>
         </Form>
       </Formik>
     </div>

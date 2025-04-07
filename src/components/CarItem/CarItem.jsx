@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { setSelectedCar } from "../../redux/cars/slice";
 import s from "./CarItem.module.css";
+import sprite from "../../assets/sprite.svg";
 
 const CarItem = ({ car }) => {
   //   console.log("CAR!:", car);
@@ -15,7 +16,12 @@ const CarItem = ({ car }) => {
   return (
     <>
       <div className={s.cardCar}>
-        <img src={car.img} alt={car.type} className={s.img} />
+        <div className={s.imgWrapper}>
+          <img src={car.img} alt={car.type} className={s.img} />
+          <svg className={s.svg}>
+            <use href={`${sprite}#icon-heart`} />
+          </svg>
+        </div>
         <div className={s.wrap}>
           <h2 className={s.titleCar}>
             {car.brand} <span className={s.modelCar}>{car.model}</span>,{" "}

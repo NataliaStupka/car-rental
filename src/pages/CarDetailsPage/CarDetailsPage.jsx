@@ -7,6 +7,7 @@ import s from "./CarDetailsPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedCar } from "../../redux/cars/slice";
 import { selectCar } from "../../redux/cars/selectors";
+import sprite from "../../assets/sprite.svg";
 
 const CarDetailsPage = () => {
   const dispatch = useDispatch();
@@ -122,6 +123,9 @@ const CarDetailsPage = () => {
               {car.brand} {car.model}, {car.year}
             </h3>
             <p className={s.adress}>
+              <svg className={s.svg}>
+                <use href={`${sprite}#icon-Location`} />
+              </svg>
               {car.address} Mileage: {car.mileage}
             </p>
             <p className={s.price}>${car.rentalPrice}</p>
@@ -131,33 +135,60 @@ const CarDetailsPage = () => {
               {car.rentalConditions.map((item) => {
                 return (
                   <li key={nanoid()} className={s.item}>
-                    - {item}
+                    <svg className={s.svg}>
+                      <use href={`${sprite}#icon-check-circle`} />
+                    </svg>
+                    {item}
                   </li>
                 );
               })}
             </ul>
             <ul className={s.list}>
               Car Specifications:
-              <li className={s.item}>Year: {car.year}</li>
-              <li className={s.item}>Type: {car.type}</li>
               <li className={s.item}>
+                <svg className={s.svg}>
+                  <use href={`${sprite}#icon-calendar`} />
+                </svg>
+                Year: {car.year}
+              </li>
+              <li className={s.item}>
+                <svg className={s.svg}>
+                  <use href={`${sprite}#icon-car`} />
+                </svg>
+                Type: {car.type}
+              </li>
+              <li className={s.item}>
+                <svg className={s.svg}>
+                  <use href={`${sprite}#icon-fuel-pump`} />
+                </svg>
                 Fuel Consumption: {car.fuelConsumption}
               </li>
-              <li className={s.item}>Engine Size: {car.engineSize}</li>
+              <li className={s.item}>
+                <svg className={s.svg}>
+                  <use href={`${sprite}#icon-gear`} />
+                </svg>
+                Engine Size: {car.engineSize}
+              </li>
             </ul>
             <ul className={s.list}>
               Accessories and functionalities:
               {car.accessories.map((item) => {
                 return (
                   <li key={nanoid()} className={s.item}>
-                    - {item}
+                    <svg className={s.svg}>
+                      <use href={`${sprite}#icon-check-circle`} />
+                    </svg>
+                    {item}
                   </li>
                 );
               })}
               {car.functionalities.map((item) => {
                 return (
                   <li key={nanoid()} className={s.item}>
-                    - {item}
+                    <svg className={s.svg}>
+                      <use href={`${sprite}#icon-check-circle`} />
+                    </svg>
+                    {item}
                   </li>
                 );
               })}
