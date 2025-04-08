@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import { fetchBrands } from "../../redux/filters/operations";
 import s from "./SearchBar.module.css";
 import clsx from "clsx";
+import { fetchCarsrsByBrand } from "../../redux/cars/operations";
+import { clearCars } from "../../redux/cars/slice";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -23,11 +25,20 @@ const SearchBar = () => {
   }, [dispatch]);
 
   const handleSubmit = (values, options) => {
+    console.log("values", values);
     options.resetForm();
+
+    // оновлення фільтра
     Object.entries(values).forEach(([name, value]) => {
       dispatch(changeFilter({ name, value }));
     });
+
+    if (values.brand) {
+      dispatch(clearCars());
+      dispatch(fetchCarsrsByBrand(values.brand));
+    }
   };
+
   const initialValues = {
     brand: "",
     price: "",

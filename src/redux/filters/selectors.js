@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 export const selectAllCars = (state) => state.car.items;
+export const selectCarsByBrand = (state) => state.car.brandItems;
 
 //filter
 export const selectSearchFilterBrand = (state) => state.filter.brand;
@@ -14,17 +15,16 @@ export const selectFilterBrands = (state) => state.filter.brands;
 export const selectSearchFilter = createSelector(
   [
     selectAllCars,
+    selectCarsByBrand,
     selectSearchFilterBrand,
     selectSearchFilterPrice,
     selectFilterMileageFrom,
     selectFilterMileageTo,
   ],
-  (cars, brand, price, mileageFrom, mileageTo) => {
-    return cars.filter((car) => {
-      const matchBrand = brand
-        ? car.brand.toLowerCase().includes(brand.toLowerCase())
-        : true;
+  (items, brandItems, brand, price, mileageFrom, mileageTo) => {
+    const cars = brand ? brandItems : items;
 
+    return cars.filter((car) => {
       const matchPrice = price
         ? Number(car.rentalPrice) <= Number(price)
         : true;
@@ -41,7 +41,7 @@ export const selectSearchFilter = createSelector(
         ? Number(car.mileage) <= Number(mileageTo)
         : true;
 
-      return matchBrand && matchPrice && matchMileageFrom && matchMileageTo;
+      return matchPrice && matchMileageFrom && matchMileageTo;
     });
   }
 );
