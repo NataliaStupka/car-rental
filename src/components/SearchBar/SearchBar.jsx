@@ -11,14 +11,12 @@ import clsx from "clsx";
 import { fetchCarsByFilters } from "../../redux/cars/operations";
 import { clearCars } from "../../redux/cars/slice";
 
+const staticPrice = [30, 40, 50, 60, 70, 80];
+
 const SearchBar = () => {
   const dispatch = useDispatch();
 
   const brands = useSelector(selectFilterBrands);
-  const cars = useSelector(selectAllCars);
-  const uniquePrice = [
-    ...new Set(cars.map((car) => Number(car.rentalPrice))),
-  ].sort((a, b) => a - b);
 
   useEffect(() => {
     dispatch(fetchBrands());
@@ -85,7 +83,7 @@ const SearchBar = () => {
               <option disabled value="">
                 Choose a price
               </option>
-              {uniquePrice.map((price) => {
+              {staticPrice.map((price) => {
                 return (
                   <option key={price} value={price}>
                     To ${price}
