@@ -30,11 +30,16 @@ const CarItem = ({ car }) => {
           </h2>
           <p className={s.price}>${car.rentalPrice}</p>
         </div>
-        <p className={s.text}>
-          {car.address} {car.rentalCompany}
+        <p className={s.textLine}>
+          <span>{car.address?.split(",")?.slice(-2)[0].trim()}</span>
+          <span>{car.address?.split(",")?.slice(-1)[0].trim()}</span>
+          <span>{car.rentalCompany}</span>
         </p>
-        <p className={s.text}>
-          {car.type} {car.mileage} km
+        <p className={s.textLine}>
+          <span>{car.type}</span>
+          <span>
+            {car.mileage.toLocaleString("en-US").replace(/,/g, " ")} km
+          </span>
         </p>
       </div>
       <Link

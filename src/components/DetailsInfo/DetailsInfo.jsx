@@ -8,8 +8,6 @@ import { nanoid } from "@reduxjs/toolkit";
 // };
 
 const DetailsInfo = ({ car }) => {
-  //   const id = getCarId(car.img);
-
   return (
     <>
       <div className={s.titleCar}>
@@ -24,7 +22,10 @@ const DetailsInfo = ({ car }) => {
         <svg className={s.svg}>
           <use href={`${sprite}#icon-Location`} />
         </svg>
-        {car.address} Mileage: {car.mileage}
+        {car.address?.split(",")?.slice(-2).join(",")}
+        <span className={s.mileage}>
+          Mileage: {car.mileage.toLocaleString("en-US").replace(/,/g, " ")} km
+        </span>
       </p>
       <p className={s.price}>${car.rentalPrice}</p>
       <p className={s.descrip}>{car.description}</p>

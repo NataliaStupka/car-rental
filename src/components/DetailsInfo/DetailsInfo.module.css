@@ -37,6 +37,10 @@
   margin-right: 8px;
 }
 
+.mileage {
+  margin-left: 16px;
+}
+
 .price {
   font-family: Manrope;
   font-weight: 600;

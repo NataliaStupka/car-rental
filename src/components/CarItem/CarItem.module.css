@@ -53,14 +53,30 @@
   color: var(--main-text);
 }
 
-.text {
+.textLine {
   font-family: Manrope;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
-  letter-spacing: 0%;
   color: var(--grey);
   margin-bottom: 4px;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.textLine span {
+  position: relative;
+  padding-right: 8px;
+}
+.textLine span:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 16px;
+  width: 1px;
+  background-color: #dadde1;
 }
 
 .btnMore {
