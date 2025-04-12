@@ -13,6 +13,7 @@
 }
 
 .group {
+  position: relative;
   display: flex;
   flex-direction: column;
 
@@ -60,11 +61,20 @@
     width: 160px;
   }
 }
+
 .mileageGroup {
   display: flex;
 }
 .inputWrap {
   position: relative;
+}
+.error {
+  position: absolute;
+  left: 15px;
+  top: 69px;
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
 }
 .labelFloat {
   position: absolute;

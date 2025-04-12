@@ -39,16 +39,28 @@ const CarCatalog = () => {
     }
   };
 
+  const isEmptyAfterSearch = wasFetched && allCars.length === 0;
+
   return (
     <div className="container" style={{ marginBottom: "124px" }}>
-      <ul className={s.carList}>
-        {allCars.map((car) => (
-          <li key={car.id}>
-            <CarItem car={car} />
-          </li>
-        ))}
-      </ul>
+      {isEmptyAfterSearch ? (
+        <p className={s.noResults}>
+          No cars found with these filters. Try adjusting your criteria
+        </p>
+      ) : (
+        <>
+          <ul className={s.carList}>
+            {allCars.map((car) => (
+              <li key={car.id}>
+                <CarItem car={car} />
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
       {isLoading && <LoaderComponent />}
+
       {allCars.length < totalCars && (
         <button
           type="button"

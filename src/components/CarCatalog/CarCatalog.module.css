@@ -1,3 +1,9 @@
+.noResults {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 40px;
+  color: var(--main-text);
+}
 .carList {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
