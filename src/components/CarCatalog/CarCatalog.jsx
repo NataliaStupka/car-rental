@@ -10,15 +10,14 @@ import {
 } from "../../redux/cars/selectors";
 import s from "./CarCatalog.module.css";
 import { incrementPage } from "../../redux/cars/slice";
-import { selectSearchFilter } from "../../redux/filters/selectors";
 import LoaderComponent from "../Loader/Loader";
 import { useEffect } from "react";
-import { fetchCars } from "../../redux/cars/operations";
+import { fetchAllCars } from "../../redux/cars/operations";
 
 const CarCatalog = () => {
   const dispatch = useDispatch();
 
-  const cars = useSelector(selectSearchFilter);
+  const allCars = useSelector(selectAllCars);
 
   const page = useSelector(selectCurrentPage);
   const totalPages = useSelector(selectTotalPages);
@@ -30,7 +29,7 @@ const CarCatalog = () => {
   // Завантажує нові машини при зміні сторінки (крім першої)
   useEffect(() => {
     if (wasFetched && page > 1) {
-      dispatch(fetchCars(page));
+      dispatch(fetchAllCars(page));
     }
   }, [dispatch, page, wasFetched]);
 
@@ -43,14 +42,14 @@ const CarCatalog = () => {
   return (
     <div className="container" style={{ marginBottom: "124px" }}>
       <ul className={s.carList}>
-        {cars.map((car) => (
+        {allCars.map((car) => (
           <li key={car.id}>
             <CarItem car={car} />
           </li>
         ))}
       </ul>
       {isLoading && <LoaderComponent />}
-      {cars.length < totalCars && (
+      {allCars.length < totalCars && (
         <button
           type="button"
           onClick={handleLoadMore}

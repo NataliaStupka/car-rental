@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchCars } from "../../redux/cars/operations";
+import { fetchAllCars } from "../../redux/cars/operations";
 
 import CarCatalog from "../../components/CarCatalog/CarCatalog";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -20,7 +20,7 @@ const CatalogPage = () => {
 
   useEffect(() => {
     if (!wasFetched) {
-      dispatch(fetchCars(currentPage));
+      dispatch(fetchAllCars(currentPage));
     }
   }, [dispatch, currentPage, wasFetched]);
 

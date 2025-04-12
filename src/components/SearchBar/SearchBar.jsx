@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { fetchBrands } from "../../redux/filters/operations";
 import s from "./SearchBar.module.css";
 import clsx from "clsx";
-import { fetchCarsrsByBrand } from "../../redux/cars/operations";
+import { fetchCarsByFilters } from "../../redux/cars/operations";
 import { clearCars } from "../../redux/cars/slice";
 
 const SearchBar = () => {
@@ -33,9 +33,22 @@ const SearchBar = () => {
       dispatch(changeFilter({ name, value }));
     });
 
-    if (values.brand) {
+    //---
+    if (
+      values.brand ||
+      values.price ||
+      values.mileageFrom ||
+      values.mileageTo
+    ) {
       dispatch(clearCars());
-      dispatch(fetchCarsrsByBrand(values.brand));
+      dispatch(
+        fetchCarsByFilters({
+          brand: values.brand,
+          price: values.price,
+          mileageFrom: values.mileageFrom,
+          mileageTo: values.mileageTo,
+        })
+      );
     }
   };
 

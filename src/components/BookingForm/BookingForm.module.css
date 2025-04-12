@@ -1,0 +1,49 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  padding: 32px;
+  gap: 16px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.input,
+.textarea {
+  padding: 10px 14px;
+  border: 1px solid #f7f7f7;
+  border-radius: 12px;
+  font-size: 16px;
+  background-color: #f7f7f7;
+}
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.datePickerWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.datePickerContainer {
+  position: absolute;
+}
+
+.btn {
+  background-color: #3470ff;
+  color: white;
+  padding: 12px 58px;
+  border-radius: 12px;
+  border: none;
+}

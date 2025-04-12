@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCars, fetchCarsrsByBrand } from "./operations";
+import { fetchAllCars, fetchCarsByFilters } from "./operations";
 
 const initialState = {
   items: [],
-  brandItems: [],
   selectedCar: null,
+
   isLoading: false,
   isError: null,
+
   currentPage: 1,
   totalPages: null,
   totalCars: null,
@@ -18,7 +19,6 @@ const handlePending = (state) => {
   state.isError = false; //??
 };
 const handleRejected = (state, { payload }) => {
-  console.log("ERRor-rejected", payload);
   state.isLoading = false;
   state.isError = payload;
   state.isError = true; //???
@@ -39,14 +39,14 @@ const slice = createSlice({
     clearCars: (state) => {
       state.items = [];
     },
-    clearBrandCars: (state) => {
-      state.brandItems = [];
-    },
+    // clearBrandCars: (state) => {
+    //   state.brandItems = [];
+    // },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCars.pending, handlePending)
-      .addCase(fetchCars.fulfilled, (state, action) => {
+      .addCase(fetchAllCars.pending, handlePending)
+      .addCase(fetchAllCars.fulfilled, (state, action) => {
         const { cars, page, totalCars, totalPages } = action.payload;
         if (page === 1) {
           state.items = cars;
@@ -60,15 +60,16 @@ const slice = createSlice({
         state.isLoading = false;
         state.wasFetched = true;
       })
-      .addCase(fetchCars.rejected, handleRejected)
-      .addCase(fetchCarsrsByBrand.fulfilled, (state, action) => {
+      .addCase(fetchAllCars.rejected, handleRejected)
+      //====
+      .addCase(fetchCarsByFilters.fulfilled, (state, action) => {
         const { cars } = action.payload;
-        console.log("CarsByBrand", action.payload);
-        state.brandItems = cars;
+        console.log("&&&=====allFilters", cars);
+        state.items = cars;
+        state.isLoading = false;
       });
   },
 });
 
-export const { setSelectedCar, incrementPage, clearCars, clearBrandCars } =
-  slice.actions;
+export const { setSelectedCar, incrementPage, clearCars } = slice.actions;
 export const carReducer = slice.reducer;

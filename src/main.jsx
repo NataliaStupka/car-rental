@@ -21,7 +21,7 @@ createRoot(document.getElementById("root")).render(
         position="top-right"
         reverseOrder={false}
         toastOptions={{
-          duration: 2000,
+          duration: 3000,
         }}
       />
       {/* </PersistGate> */}

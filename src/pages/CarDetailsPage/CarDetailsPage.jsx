@@ -1,5 +1,3 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import * as Yup from "yup";
 import { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
@@ -9,6 +7,8 @@ import { setSelectedCar } from "../../redux/cars/slice";
 import { selectCar } from "../../redux/cars/selectors";
 import sprite from "../../assets/sprite.svg";
 import clsx from "clsx";
+
+import BookingForm from "../../components/BookingForm/BookingForm";
 
 const CarDetailsPage = () => {
   const dispatch = useDispatch();
@@ -34,27 +34,11 @@ const CarDetailsPage = () => {
   // ?????????
   if (!car) {
     return <p>Поверніться назад до каталогу</p>;
+    // <div className={clsx("container", s.details)}>
+    //   <Link to={goBackLink.current}>Go back</Link>
+    //   <p>Please return to the catalog.</p>
+    // </div>;
   }
-
-  const initialValues = {
-    username: "",
-    email: "",
-    bookingDate: "",
-    comment: "",
-  };
-  const handleSubmit = (value, options) => {
-    console.log("Form-value", value);
-    options.resetForm();
-  };
-  const contactSchema = Yup.object().shape({
-    username: Yup.string()
-      .min(3, "Too short!")
-      .max(50, "Поле не може бути більше ніж 50 символи")
-      .required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
-    bookingDate: Yup.string().required("Required"),
-    comment: Yup.string(),
-  });
 
   return (
     <main>
@@ -70,52 +54,7 @@ const CarDetailsPage = () => {
                 Stay connected! We are always ready to help you.
               </p>
 
-              <Formik
-                onSubmit={handleSubmit}
-                initialValues={initialValues}
-                validationSchema={contactSchema}
-              >
-                <Form className={s.form}>
-                  <div className={s.inputGroup}>
-                    <Field
-                      type="text"
-                      name="username"
-                      placeholder="Name"
-                      className={s.input}
-                    />
-                  </div>
-
-                  <div className={s.inputGroup}>
-                    <Field
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      className={s.input}
-                    />
-                  </div>
-
-                  <div className={s.inputGroup}>
-                    <Field
-                      type="text"
-                      name="bookingDate"
-                      placeholder="Booking date"
-                      className={s.input}
-                    />
-                  </div>
-                  <div className={s.inputGroup}>
-                    <Field
-                      as="textarea"
-                      name="comment"
-                      placeholder="Comment"
-                      className={s.textarea}
-                    />
-                  </div>
-
-                  <button type="submit" className={s.btn}>
-                    Send
-                  </button>
-                </Form>
-              </Formik>
+              <BookingForm />
             </div>
           </div>
 

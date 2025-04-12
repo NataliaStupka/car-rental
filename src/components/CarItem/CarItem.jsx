@@ -5,7 +5,6 @@ import s from "./CarItem.module.css";
 import sprite from "../../assets/sprite.svg";
 
 const CarItem = ({ car }) => {
-  //   console.log("CAR!:", car);
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -18,9 +17,11 @@ const CarItem = ({ car }) => {
       <div className={s.cardCar}>
         <div className={s.imgWrapper}>
           <img src={car.img} alt={car.type} className={s.img} />
-          <svg className={s.svg}>
-            <use href={`${sprite}#icon-heart`} />
-          </svg>
+          <button>
+            <svg className={s.svg}>
+              <use href={`${sprite}#icon-heart`} />
+            </svg>
+          </button>
         </div>
         <div className={s.wrap}>
           <h2 className={s.titleCar}>
