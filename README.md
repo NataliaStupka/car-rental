@@ -1,12 +1,20 @@
-# React + Vite
+**Rental Car**
+The Rental Car project is a car rental platform that provides a convenient interface for searching and booking vehicles.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Main functions
 
-Currently, two official plugins are available:
+- Search for cars by specified criteria (make, price, mileage)
+  ![Alt текст](./src/images/readme/filter.jpg)
+- View detailed information about the selected car
+  ![Alt текст](./src/images/readme/details.jpg)
+- Booking system
+  ![Alt текст](./src/images/readme/form.jpg)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Installation instructions:
 
-## Expanding the ESLint configuration
+- Clone the repository;
+- Go to the project directory;
+- Install dependencies: npm install;
+- Run the project: npm run dev.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Author: Stupka Nataliia https://github.com/NataliaStupka
