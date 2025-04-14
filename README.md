@@ -3,11 +3,16 @@ The Rental Car project is a car rental platform that provides a convenient inter
 
 Main functions
 
-- Search for cars by specified criteria (make, price, mileage)
+- Search for cars by specified criteria (brand, price, mileage)
+
   ![Alt текст](./src/images/readme/filter.jpg)
+
 - View detailed information about the selected car
+
   ![Alt текст](./src/images/readme/details.jpg)
+
 - Booking system
+
   ![Alt текст](./src/images/readme/form.jpg)
 
 Installation instructions:
