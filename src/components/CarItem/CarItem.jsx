@@ -52,7 +52,11 @@ const CarItem = ({ car }) => {
               className={isFavorite ? clsx(s.svg, s.svgFavorite) : s.svg}
               onClick={isFavorite ? handleRemoveFavorite : handleAddFavorite}
             >
-              <use href={`${sprite}#icon-heart`} />
+              <use
+                href={`${sprite}#${
+                  isFavorite ? "icon-heart-favorite" : "icon-heart"
+                }`}
+              />
             </svg>
           </button>
         </div>
