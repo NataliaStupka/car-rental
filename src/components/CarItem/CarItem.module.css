@@ -9,21 +9,24 @@
   margin-bottom: 16px;
   border-radius: 12px;
 }
-.svg {
+
+.heart {
   position: absolute;
   top: 16px;
   right: 16px;
+  background-color: transparent;
+}
+.svg {
   width: 16px;
   height: 16px;
-  fill: red;
+  fill: var(--white);
   cursor: pointer;
-
-  &:hover,
-  &:focus {
-    --color1: #3470ff;
-    stroke: 3470ff;
-  }
+  background-color: transparent;
 }
+.svgFavorite {
+  fill: #3470ff;
+}
+
 .wrap {
   display: flex;
   margin-bottom: 8px;

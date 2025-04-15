@@ -1,9 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { fetchAllCars, fetchCarsByFilters } from "./operations";
 
 const initialState = {
   items: [],
-  selectedCar: null,
+  selectedCar: null, //замінити на fetchById
+  favoriteCars: [],
 
   isLoading: false,
   isError: null,
@@ -11,17 +12,7 @@ const initialState = {
   currentPage: 1,
   totalPages: null,
   totalCars: null,
-  wasFetched: false,
-};
-
-const handlePending = (state) => {
-  state.isLoading = true;
-  state.isError = false; //??
-};
-const handleRejected = (state, { payload }) => {
-  state.isLoading = false;
-  state.isError = payload;
-  state.isError = true; //???
+  wasFetched: false, //?
 };
 
 const slice = createSlice({
@@ -29,23 +20,31 @@ const slice = createSlice({
   initialState,
   //   action
   reducers: {
+    addFavoriteCar(state, action) {
+      state.favoriteCars.push(action.payload);
+    },
+    deleteFavoriteCar(state, action) {
+      state.favoriteCars = state.favoriteCars.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+
+    //замінити на fetchCarById
     setSelectedCar: (state, action) => {
       console.log("selectedCar-", action.payload);
       state.selectedCar = action.payload;
     },
+    //замінити
     incrementPage: (state) => {
       state.currentPage += 1;
     },
     clearCars: (state) => {
       state.items = [];
     },
-    // clearBrandCars: (state) => {
-    //   state.brandItems = [];
-    // },
   },
+  //reducer
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllCars.pending, handlePending)
       .addCase(fetchAllCars.fulfilled, (state, action) => {
         const { cars, page, totalCars, totalPages } = action.payload;
         if (page === 1) {
@@ -57,19 +56,43 @@ const slice = createSlice({
         state.totalPages = totalPages;
         state.totalCars = totalCars;
 
-        state.isLoading = false;
         state.wasFetched = true;
       })
-      .addCase(fetchAllCars.rejected, handleRejected)
-      //====
       .addCase(fetchCarsByFilters.fulfilled, (state, action) => {
         const { cars } = action.payload;
-        console.log("&&&=====allFilters", cars);
         state.items = cars;
-        state.isLoading = false;
-      });
+      })
+
+      //-- addMatcher --//
+      .addMatcher(
+        isAnyOf(fetchAllCars.pending, fetchCarsByFilters.pending),
+        (state) => {
+          state.isLoading = true;
+          state.isError = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(fetchAllCars.fulfilled, fetchCarsByFilters.fulfilled),
+        (state) => {
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(fetchAllCars.rejected, fetchCarsByFilters.rejected),
+        (state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.isError = action.payload;
+        }
+      );
   },
 });
 
-export const { setSelectedCar, incrementPage, clearCars } = slice.actions;
-export const carReducer = slice.reducer;
+export const {
+  addFavoriteCar,
+  deleteFavoriteCar,
+  setSelectedCar,
+  incrementPage,
+  clearCars,
+} = slice.actions;
+export const carsReducer = slice.reducer;
