@@ -14,10 +14,11 @@ import LoaderComponent from "../Loader/Loader";
 import { useEffect } from "react";
 import { fetchAllCars } from "../../redux/cars/operations";
 
-const CarCatalog = () => {
+const CarCatalog = ({ cars: propCars }) => {
   const dispatch = useDispatch();
+  const storeCare = useSelector(selectAllCars);
 
-  const allCars = useSelector(selectAllCars);
+  const allCars = propCars ? propCars : storeCare;
 
   const page = useSelector(selectCurrentPage);
   const totalPages = useSelector(selectTotalPages);

@@ -19,8 +19,14 @@ const Navigation = () => {
         >
           Home
         </NavLink>
-        <NavLink to="/catalog" className={buildLinkClass}>
+        <NavLink
+          to="/catalog"
+          className={(props) => clsx(buildLinkClass(props), s.navItem)}
+        >
           Catalog
+        </NavLink>
+        <NavLink to="/favorite" className={buildLinkClass}>
+          Favorite
         </NavLink>
       </div>
     </nav>
