@@ -12,6 +12,7 @@ import {
 const CatalogPage = () => {
   const dispatch = useDispatch();
   const currentPage = useSelector(selectCurrentPage);
+
   const wasFetched = useSelector(selectWasFetched);
 
   useEffect(() => {

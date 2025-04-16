@@ -1,10 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import {
-  addFavoriteCar,
-  deleteFavoriteCar,
-  setSelectedCar,
-} from "../../redux/cars/slice";
+import { addFavoriteCar, deleteFavoriteCar } from "../../redux/cars/slice";
 import s from "./CarItem.module.css";
 import sprite from "../../assets/sprite.svg";
 import { selectFavoriteCars } from "../../redux/cars/selectors";
@@ -28,11 +24,6 @@ const CarItem = ({ car }) => {
     mileage,
     id,
   } = car;
-
-  //замінити на зберігання по id ??
-  const handleSelectCar = () => {
-    dispatch(setSelectedCar(car)); // зберігаємо авто в store
-  };
 
   const isFavorite = favoriteCars.find((item) => item.id === id);
   const handleAddFavorite = () => {
@@ -78,8 +69,7 @@ const CarItem = ({ car }) => {
       </div>
       <Link
         to={`/catalog/${id}`}
-        state={{ car, from: location }}
-        onClick={handleSelectCar}
+        state={{ from: location }}
         className={s.btnMore}
       >
         Read more

@@ -1,15 +1,16 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { fetchAllCars, fetchCarsByFilters } from "./operations";
+import { fetchAllCars, fetchCarById, fetchCarsByFilters } from "./operations";
 
 const initialState = {
   items: [],
-  selectedCar: null, //замінити на fetchById
+  carById: null,
+
   favoriteCars: [],
 
   isLoading: false,
   isError: null,
 
-  currentPage: 1,
+  currentPage: 1, //number
   totalPages: null,
   totalCars: null,
   wasFetched: false, //?
@@ -29,11 +30,6 @@ const slice = createSlice({
       );
     },
 
-    //замінити на fetchCarById
-    setSelectedCar: (state, action) => {
-      console.log("selectedCar-", action.payload);
-      state.selectedCar = action.payload;
-    },
     //замінити
     incrementPage: (state) => {
       state.currentPage += 1;
@@ -47,41 +43,59 @@ const slice = createSlice({
     builder
       .addCase(fetchAllCars.fulfilled, (state, action) => {
         const { cars, page, totalCars, totalPages } = action.payload;
+
         if (page === 1) {
           state.items = cars;
         } else {
           state.items = [...state.items, ...cars];
         }
-        state.page = page;
+        state.page = page; //????? string
+        console.log(state.page, state.currentPage);
         state.totalPages = totalPages;
         state.totalCars = totalCars;
 
-        state.wasFetched = true;
+        state.wasFetched = true; //?????
       })
       .addCase(fetchCarsByFilters.fulfilled, (state, action) => {
         const { cars } = action.payload;
         state.items = cars;
       })
+      .addCase(fetchCarById.fulfilled, (state, action) => {
+        state.carById = action.payload;
+        console.log("!!!carById payload", action.payload);
+      })
 
       //-- addMatcher --//
       .addMatcher(
-        isAnyOf(fetchAllCars.pending, fetchCarsByFilters.pending),
+        isAnyOf(
+          fetchAllCars.pending,
+          fetchCarsByFilters.pending,
+          fetchCarById.pending
+        ),
         (state) => {
           state.isLoading = true;
           state.isError = false;
         }
       )
       .addMatcher(
-        isAnyOf(fetchAllCars.fulfilled, fetchCarsByFilters.fulfilled),
+        isAnyOf(
+          fetchAllCars.fulfilled,
+          fetchCarsByFilters.fulfilled,
+          fetchCarById.fulfilled
+        ),
         (state) => {
           state.isLoading = false;
         }
       )
       .addMatcher(
-        isAnyOf(fetchAllCars.rejected, fetchCarsByFilters.rejected),
+        isAnyOf(
+          fetchAllCars.rejected,
+          fetchCarsByFilters.rejected,
+          fetchCarById.rejected
+        ),
         (state, action) => {
           state.isLoading = false;
-          state.isError = true;
+          state.isError = true; //???
           state.isError = action.payload;
         }
       );

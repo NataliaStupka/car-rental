@@ -1,44 +1,52 @@
 import { useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import s from "./CarDetailsPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedCar } from "../../redux/cars/slice";
-import { selectCar } from "../../redux/cars/selectors";
+
+import {
+  selectCarById,
+  selectIsError,
+  selectIsLoading,
+} from "../../redux/cars/selectors";
 
 import clsx from "clsx";
 
 import BookingForm from "../../components/BookingForm/BookingForm";
 import DetailsInfo from "../../components/DetailsInfo/DetailsInfo";
+import { fetchCarById } from "../../redux/cars/operations";
+import LoaderComponent from "../../components/Loader/Loader";
 
 const CarDetailsPage = () => {
   const dispatch = useDispatch();
+  const { id } = useParams(); //id з URL
   const location = useLocation();
+
+  const car = useSelector(selectCarById); // {}
+
+  const isLoading = useSelector(selectIsLoading);
+  const isError = useSelector(selectIsError);
 
   useEffect(() => {
     document.title = "Rental Car | Car";
   }, []);
 
-  const carFromLocation = location.state?.car;
-  const carFromStore = useSelector(selectCar);
-
-  const car = carFromLocation || carFromStore;
-
   useEffect(() => {
-    if (carFromLocation) {
-      dispatch(setSelectedCar(carFromLocation));
-    }
-  }, [carFromLocation, dispatch]);
+    dispatch(fetchCarById({ id }));
+  }, [dispatch, id]);
 
   const goBackLink = useRef(location.state?.from || "/");
 
-  // ?????????
-  if (!car) {
-    return <p>Поверніться назад до каталогу</p>;
-    // <div className={clsx("container", s.details)}>
-    //   <Link to={goBackLink.current}>Go back</Link>
-    //   <p>Please return to the catalog.</p>
-    // </div>;
+  if (isLoading) {
+    return <LoaderComponent />;
+  }
+  if (isError || !car) {
+    return (
+      <div className={clsx("container", s.details)}>
+        <Link to={goBackLink.current}>Повернутися назад</Link>
+        <p>Не вдалося завантажити дані автомобіля. Спробуйте ще раз.</p>
+      </div>
+    );
   }
 
   return (
@@ -58,11 +66,8 @@ const CarDetailsPage = () => {
               <BookingForm />
             </div>
           </div>
-
           <div>
             <DetailsInfo car={car} />
-
-            {/* separet. component */}
           </div>
         </div>
       </div>
