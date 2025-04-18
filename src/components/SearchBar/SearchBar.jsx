@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { fetchBrands } from "../../redux/filters/operations";
 import s from "./SearchBar.module.css";
 import clsx from "clsx";
-import { fetchCarsByFilters } from "../../redux/cars/operations";
+import { fetchAllCars, fetchCarsByFilters } from "../../redux/cars/operations";
 import { clearCars } from "../../redux/cars/slice";
 
 const staticPrice = [30, 40, 50, 60, 70, 80];
@@ -21,31 +21,51 @@ const SearchBar = () => {
     dispatch(fetchBrands());
   }, [dispatch]);
 
-  const handleSubmit = (values, options) => {
-    options.resetForm();
+  //відправка
+  const handleSubmit = (values, { resetForm }) => {
+    dispatch(clearCars());
+
+    dispatch(
+      fetchCarsByFilters({
+        brand: values.brand,
+        price: values.price,
+        mileageFrom: values.mileageFrom,
+        mileageTo: values.mileageTo,
+      })
+    );
+    resetForm();
 
     // оновлення фільтра
     Object.entries(values).forEach(([name, value]) => {
       dispatch(changeFilter({ name, value }));
     });
 
-    //---
-    if (
-      values.brand ||
-      values.price ||
-      values.mileageFrom ||
-      values.mileageTo
-    ) {
-      dispatch(clearCars());
-      dispatch(
-        fetchCarsByFilters({
-          brand: values.brand,
-          price: values.price,
-          mileageFrom: values.mileageFrom,
-          mileageTo: values.mileageTo,
-        })
-      );
-    }
+    // //---
+    // if (
+    //   values.brand ||
+    //   values.price ||
+    //   values.mileageFrom ||
+    //   values.mileageTo
+    // ) {
+    //   dispatch(clearCars());
+    //   dispatch(
+    //     fetchCarsByFilters({
+    //       brand: values.brand,
+    //       price: values.price,
+    //       mileageFrom: values.mileageFrom,
+    //       mileageTo: values.mileageTo,
+    //     })
+    //   );
+    // }
+  };
+
+  const handleReset = (resetForm) => {
+    dispatch(clearCars());
+    dispatch(fetchAllCars(1));
+    resetForm();
+    ["brand", "price", "mileageFrom", "mileageTo"].forEach((name) => {
+      dispatch(changeFilter({ name, value: "" })); // оновлення фільтра
+    });
   };
 
   const initialValues = {
@@ -80,83 +100,93 @@ const SearchBar = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
       >
-        <Form className={s.form}>
-          {/* BRAND */}
-          <div className={s.group}>
-            <label className={s.label}>Car brand</label>
-            <Field as="select" name="brand" className={s.select}>
-              <option disabled value="">
-                Choose a brand
-              </option>
-              {brands.map((brand) => {
-                return (
-                  <option key={brand} value={brand}>
-                    {brand}
-                  </option>
-                );
-              })}
-            </Field>
-            <ErrorMessage name="brand" component="div" className={s.error} />
-          </div>
-
-          {/* PRICE */}
-          <div className={s.group}>
-            <label className={s.label}>Price/ 1 hour</label>
-            <Field as="select" name="price" className={s.select}>
-              <option disabled value="">
-                Choose a price
-              </option>
-              {staticPrice.map((price) => {
-                return (
-                  <option key={price} value={price}>
-                    To ${price}
-                  </option>
-                );
-              })}
-            </Field>
-            <ErrorMessage name="price" component="div" className={s.error} />
-          </div>
-
-          {/* MILEAGE */}
-          <div className={s.group}>
-            <label className={s.label}>Сar mileage / km </label>
-            <div className={s.mileageGroup}>
-              {/* FROM */}
-              <div className={s.inputWrap}>
-                <label className={s.labelFloat}>From</label>
-                <Field
-                  type="number"
-                  name="mileageFrom"
-                  className={clsx(s.input, s.inputFrom)}
-                />
-              </div>
-
-              {/* TO */}
-              <div className={s.inputWrap}>
-                <label className={s.labelFloat}>To</label>
-                <Field
-                  type="number"
-                  name="mileageTo"
-                  className={clsx(s.input, s.inputTo)}
-                />
-              </div>
+        {({ resetForm }) => (
+          <Form className={s.form}>
+            {/* BRAND */}
+            <div className={s.group}>
+              <label className={s.label}>Car brand</label>
+              <Field as="select" name="brand" className={s.select}>
+                <option disabled value="">
+                  Choose a brand
+                </option>
+                {brands.map((brand) => {
+                  return (
+                    <option key={brand} value={brand}>
+                      {brand}
+                    </option>
+                  );
+                })}
+              </Field>
+              <ErrorMessage name="brand" component="div" className={s.error} />
             </div>
-            <ErrorMessage
-              name="mileageFrom"
-              component="div"
-              className={s.error}
-            />
-            <ErrorMessage
-              name="mileageTo"
-              component="div"
-              className={s.error}
-            />
-          </div>
 
-          <button type="submit" className={clsx("button", s.btnSearch)}>
-            Search
-          </button>
-        </Form>
+            {/* PRICE */}
+            <div className={s.group}>
+              <label className={s.label}>Price/ 1 hour</label>
+              <Field as="select" name="price" className={s.select}>
+                <option disabled value="">
+                  Choose a price
+                </option>
+                {staticPrice.map((price) => {
+                  return (
+                    <option key={price} value={price}>
+                      To ${price}
+                    </option>
+                  );
+                })}
+              </Field>
+              <ErrorMessage name="price" component="div" className={s.error} />
+            </div>
+
+            {/* MILEAGE */}
+            <div className={s.group}>
+              <label className={s.label}>Сar mileage / km </label>
+              <div className={s.mileageGroup}>
+                {/* FROM */}
+                <div className={s.inputWrap}>
+                  <label className={s.labelFloat}>From</label>
+                  <Field
+                    type="number"
+                    name="mileageFrom"
+                    className={clsx(s.input, s.inputFrom)}
+                  />
+                </div>
+
+                {/* TO */}
+                <div className={s.inputWrap}>
+                  <label className={s.labelFloat}>To</label>
+                  <Field
+                    type="number"
+                    name="mileageTo"
+                    className={clsx(s.input, s.inputTo)}
+                  />
+                </div>
+              </div>
+              <ErrorMessage
+                name="mileageFrom"
+                component="div"
+                className={s.error}
+              />
+              <ErrorMessage
+                name="mileageTo"
+                component="div"
+                className={s.error}
+              />
+            </div>
+
+            <button type="submit" className={clsx("button", s.btnSearch)}>
+              Search
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleReset(resetForm)}
+              className={clsx("button", s.btnReset)}
+            >
+              Reset filter
+            </button>
+          </Form>
+        )}
       </Formik>
     </div>
   );

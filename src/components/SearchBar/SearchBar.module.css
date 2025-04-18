@@ -92,5 +92,13 @@
 }
 
 .btnSearch {
-  padding: 12px 51;
+  padding: 12px 51px;
+}
+
+.btnReset {
+  background-color: var(--grey);
+  color: var(--white);
+  margin-left: 10px;
+  white-space: nowrap;
+  padding: 12px 45px;
 }
