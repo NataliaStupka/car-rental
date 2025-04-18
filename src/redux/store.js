@@ -19,7 +19,14 @@ const persistConfig = {
   key: "favoritePersistor", // як буде записано в LocalStorage
   version: 1,
   storage,
-  whitelist: ["favoriteCars"], // властивість state.car.favoriteCars
+  whitelist: [
+    "favoriteCars",
+    // "items", //?
+    // "loadedPages", //?
+    // "currentPage", //?
+    // "totalPages", //?
+    // "totalCars", //?
+  ], // властивість state.car.favoriteCars
 };
 
 //обгортка persist

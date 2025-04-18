@@ -6,41 +6,30 @@ import {
   selectIsLoading,
   selectTotalCars,
   selectTotalPages,
-  selectWasFetched,
 } from "../../redux/cars/selectors";
 import s from "./CarCatalog.module.css";
 import { incrementPage } from "../../redux/cars/slice";
 import LoaderComponent from "../Loader/Loader";
-import { useEffect } from "react";
-import { fetchAllCars } from "../../redux/cars/operations";
 
 const CarCatalog = ({ cars: propCars }) => {
   const dispatch = useDispatch();
-  const storeCare = useSelector(selectAllCars);
+  const storeCars = useSelector(selectAllCars);
 
-  const allCars = propCars ? propCars : storeCare;
+  const allCars = propCars || storeCars;
 
-  const page = useSelector(selectCurrentPage);
+  const currentPage = useSelector(selectCurrentPage);
   const totalPages = useSelector(selectTotalPages);
   const totalCars = useSelector(selectTotalCars);
 
   const isLoading = useSelector(selectIsLoading);
-  const wasFetched = useSelector(selectWasFetched);
-
-  // Завантажує нові машини при зміні сторінки (крім першої)
-  useEffect(() => {
-    if (wasFetched && page > 1) {
-      dispatch(fetchAllCars(page));
-    }
-  }, [dispatch, page, wasFetched]);
 
   const handleLoadMore = () => {
-    if (page < totalPages) {
+    if (currentPage < totalPages) {
       dispatch(incrementPage());
     }
   };
 
-  const isEmptyAfterSearch = wasFetched && allCars.length === 0;
+  const isEmptyAfterSearch = allCars.length === 0 && !isLoading;
 
   return (
     <div className="container" style={{ marginBottom: "124px" }}>
@@ -62,15 +51,18 @@ const CarCatalog = ({ cars: propCars }) => {
 
       {isLoading && <LoaderComponent />}
 
-      {allCars.length < totalCars && (
-        <button
-          type="button"
-          onClick={handleLoadMore}
-          className={s.btnLoadMore}
-        >
-          Load More
-        </button>
-      )}
+      {!isLoading &&
+        !propCars &&
+        allCars.length > 0 &&
+        allCars.length < totalCars && (
+          <button
+            type="button"
+            onClick={handleLoadMore}
+            className={s.btnLoadMore}
+          >
+            Load More
+          </button>
+        )}
     </div>
   );
 };

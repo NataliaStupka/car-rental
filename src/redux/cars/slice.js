@@ -13,7 +13,8 @@ const initialState = {
   currentPage: 1, //number
   totalPages: null,
   totalCars: null,
-  wasFetched: false, //?
+  // wasFetched: false, //?
+  loadedPages: [], //масив завантажених сторінок
 };
 
 const slice = createSlice({
@@ -30,12 +31,17 @@ const slice = createSlice({
       );
     },
 
-    //замінити
     incrementPage: (state) => {
-      state.currentPage += 1;
+      state.currentPage = Number(state.currentPage) + 1;
+      console.log("Increment +1");
     },
     clearCars: (state) => {
       state.items = [];
+      state.loadedPages = [];
+      state.currentPage = 1;
+    },
+    resetPage: (state) => {
+      state.currentPage = 1;
     },
   },
   //reducer
@@ -43,26 +49,35 @@ const slice = createSlice({
     builder
       .addCase(fetchAllCars.fulfilled, (state, action) => {
         const { cars, page, totalCars, totalPages } = action.payload;
+        const pageNumber = Number(page);
 
-        if (page === 1) {
+        if (state.loadedPages.includes(pageNumber)) {
+          console.log("Сторінка вже завантажена");
+          return; // Не додаємо cars, якщо сторінка вже завантажена
+        }
+        //??????
+        if (pageNumber === 1) {
+          console.log("Це перша сторінка");
           state.items = cars;
         } else {
+          console.log("до попередньої сторінки додамо ще сторіночку");
           state.items = [...state.items, ...cars];
         }
-        state.page = page; //????? string
-        console.log(state.page, state.currentPage);
-        state.totalPages = totalPages;
-        state.totalCars = totalCars;
+        state.currentPage = pageNumber;
+        state.totalPages = Number(totalPages);
+        state.totalCars = Number(totalCars);
 
-        state.wasFetched = true; //?????
+        state.loadedPages = [...state.loadedPages, pageNumber];
+        console.log("[завантажені сторінки]:", state.loadedPages);
       })
       .addCase(fetchCarsByFilters.fulfilled, (state, action) => {
         const { cars } = action.payload;
         state.items = cars;
+        state.loadedPages = []; // Скидаємо при фільтрації
+        state.currentPage = 1;
       })
       .addCase(fetchCarById.fulfilled, (state, action) => {
         state.carById = action.payload;
-        console.log("!!!carById payload", action.payload);
       })
 
       //-- addMatcher --//
@@ -74,7 +89,7 @@ const slice = createSlice({
         ),
         (state) => {
           state.isLoading = true;
-          state.isError = false;
+          state.isError = null; //false
         }
       )
       .addMatcher(
@@ -105,8 +120,8 @@ const slice = createSlice({
 export const {
   addFavoriteCar,
   deleteFavoriteCar,
-  setSelectedCar,
   incrementPage,
   clearCars,
+  resetPage,
 } = slice.actions;
 export const carsReducer = slice.reducer;
