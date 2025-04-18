@@ -1,0 +1,7 @@
+.noFavorites {
+  text-align: center;
+  font-family: Manrope, sans-serif;
+  font-size: 18px;
+  color: var(--grey);
+  margin-top: 40px;
+}
