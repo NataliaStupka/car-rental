@@ -2,11 +2,6 @@ import s from "./DetailsInfo.module.css";
 import sprite from "../../assets/sprite.svg";
 import { nanoid } from "@reduxjs/toolkit";
 
-// const getCarId = (url) => {
-//   const carId = url.split("/").pop(); //'9582-ai.jpg
-//   return carId?.split("-")[0]; //9582
-// };
-
 const DetailsInfo = ({ car }) => {
   return (
     <>
