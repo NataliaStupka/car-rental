@@ -11,6 +11,7 @@ import s from "./CarCatalog.module.css";
 import { incrementPage } from "../../redux/cars/slice";
 import LoaderComponent from "../Loader/Loader";
 
+//props - favoriteCars
 const CarCatalog = ({ cars: propCars }) => {
   const dispatch = useDispatch();
   const storeCars = useSelector(selectAllCars);
