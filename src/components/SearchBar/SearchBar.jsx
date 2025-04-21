@@ -39,24 +39,6 @@ const SearchBar = () => {
     Object.entries(values).forEach(([name, value]) => {
       dispatch(changeFilter({ name, value }));
     });
-
-    // //---
-    // if (
-    //   values.brand ||
-    //   values.price ||
-    //   values.mileageFrom ||
-    //   values.mileageTo
-    // ) {
-    //   dispatch(clearCars());
-    //   dispatch(
-    //     fetchCarsByFilters({
-    //       brand: values.brand,
-    //       price: values.price,
-    //       mileageFrom: values.mileageFrom,
-    //       mileageTo: values.mileageTo,
-    //     })
-    //   );
-    // }
   };
 
   const handleReset = (resetForm) => {
@@ -183,7 +165,7 @@ const SearchBar = () => {
               onClick={() => handleReset(resetForm)}
               className={clsx("button", s.btnReset)}
             >
-              Reset filter
+              Reset
             </button>
           </Form>
         )}

@@ -35,6 +35,14 @@ const CarDetailsPage = () => {
     dispatch(fetchCarById({ id }));
   }, [dispatch, id]);
 
+  // useEffect(() => {
+  //   dispatch(fetchCarById({ id }))
+  //     .unwrap()
+  //     .catch(() => {
+  //       toast.error("Не вдалося завантажити автомобіль!");
+  //     });
+  // }, [dispatch, id]);
+
   const goBackLink = useRef(location.state?.from || "/");
 
   if (isLoading) {

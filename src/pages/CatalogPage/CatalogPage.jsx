@@ -21,7 +21,7 @@ const CatalogPage = () => {
   //перше монтування
   useEffect(() => {
     document.title = "Rental Car | Catalog";
-    console.log("ПЕРШЕ МОНТУВАННЯ");
+
     if (
       isFirstMount.current &&
       allCars.length === 0 &&

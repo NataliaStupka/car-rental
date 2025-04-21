@@ -27,6 +27,7 @@ export const fetchCarsByFilters = createAsyncThunk(
       if (mileageTo) params.append("maxMileage", mileageTo);
 
       const response = await axios.get(`cars?${params.toString()}`);
+      console.log(response.data);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
