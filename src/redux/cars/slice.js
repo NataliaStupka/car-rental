@@ -71,10 +71,12 @@ const slice = createSlice({
         console.log("[завантажені сторінки]:", state.loadedPages);
       })
       .addCase(fetchCarsByFilters.fulfilled, (state, action) => {
-        const { cars } = action.payload;
+        const { cars, totalCars, totalPages } = action.payload;
         state.items = cars;
         state.loadedPages = []; // Скидаємо при фільтрації
         state.currentPage = 1;
+        state.totalCars = Number(totalCars);
+        state.totalPages = Number(totalPages);
       })
       .addCase(fetchCarById.fulfilled, (state, action) => {
         state.carById = action.payload;
