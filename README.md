@@ -1,5 +1,6 @@
 **Rental Car**
-The Rental Car project is a car rental platform that provides a convenient interface for searching and booking vehicles.
+Rental Car — an online car rental service.
+A platform for searching, filtering, and booking rental cars. Users can browse the car catalog, filter by brand, price, and mileage, and add favorite models to their “Favorites” list.
 
 Main functions
 
